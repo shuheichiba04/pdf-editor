@@ -189,7 +189,7 @@ export const PDFEditor: React.FC = () => {
     <div className="app-container">
       <header className="app-header">
         <h1 className="app-title">
-          📄 PDF Editor
+          📄 Vibe coded PDF Editor
         </h1>
         <p className="app-subtitle">PDFの結合・画像追加・テキスト追加が簡単にできます</p>
       </header>
@@ -287,8 +287,8 @@ export const PDFEditor: React.FC = () => {
         )}
 
         <div className="card">
-          <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            👁️ プレビュー
+          <h3 style={{ marginBottom: '1rem' }}>
+            プレビュー
           </h3>
           <PDFViewer
             file={previewFile}
