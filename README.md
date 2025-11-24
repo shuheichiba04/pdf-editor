@@ -1,4 +1,4 @@
-# PDFエディタ
+# Vibe Coded PDF-Editor
 
 個人利用向けのWebベースPDFエディタです。
 
