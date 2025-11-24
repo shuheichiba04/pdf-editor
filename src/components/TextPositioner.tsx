@@ -47,7 +47,7 @@ export const TextPositioner: React.FC<TextPositionerProps> = ({
       const context = canvas.getContext('2d');
       if (!context) return;
 
-      await page.render({ canvasContext: context, viewport: scaledViewport }).promise;
+      await page.render({ canvasContext: context, viewport: scaledViewport, canvas: canvas }).promise;
 
       // Canvas を画像 URL に変換
       const imageUrl = canvas.toDataURL();

@@ -54,6 +54,7 @@ export const PDFViewer: React.FC<PDFViewerProps> = ({ file, currentPage: externa
       await page.render({
         canvasContext: context,
         viewport: viewport,
+        canvas: canvas,
       }).promise;
 
       // ページが変更されたことを親コンポーネントに通知

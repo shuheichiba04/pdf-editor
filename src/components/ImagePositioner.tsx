@@ -66,7 +66,7 @@ export const ImagePositioner: React.FC<ImagePositionerProps> = ({
       const context = canvas.getContext('2d');
       if (!context) return;
 
-      await page.render({ canvasContext: context, viewport: scaledViewport }).promise;
+      await page.render({ canvasContext: context, viewport: scaledViewport, canvas: canvas }).promise;
 
       // Canvas を画像 URL に変換
       const imageUrl = canvas.toDataURL();
@@ -111,9 +111,9 @@ export const ImagePositioner: React.FC<ImagePositionerProps> = ({
   };
 
   // PDF座標をCanvas座標に変換（Y軸反転）
-  const getCanvasY = (pdfY: number) => {
-    return pdfPageSize.height - pdfY - imageSize.height;
-  };
+  // const getCanvasY = (pdfY: number) => {
+  //   return pdfPageSize.height - pdfY - imageSize.height;
+  // };
 
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
