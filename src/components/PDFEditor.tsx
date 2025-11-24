@@ -29,8 +29,21 @@ export const PDFEditor: React.FC = () => {
 
     try {
       const mergedPdfBytes = await mergePDFs(selectedFiles);
-      downloadPDF(mergedPdfBytes, 'merged.pdf');
-      alert('PDFの結合が完了しました');
+
+      // 編集結果をステートに保存（ダウンロードはしない）
+      setEditedPdfBytes(mergedPdfBytes);
+
+      // 結合後のPDFを新しいFileオブジェクトとして設定
+      const mergedFile = new File([new Uint8Array(mergedPdfBytes)], 'merged.pdf', { type: 'application/pdf' });
+      setCurrentFile(mergedFile);
+
+      // selectedFilesを結合後のファイルに置き換え
+      setSelectedFiles([mergedFile]);
+
+      // ページインデックスをリセット
+      setCurrentPageIndex(0);
+
+      alert('PDFの結合が完了しました（エクスポートボタンでダウンロードできます）');
     } catch (error) {
       console.error('PDF結合エラー:', error);
       alert('PDF結合に失敗しました');
@@ -63,7 +76,7 @@ export const PDFEditor: React.FC = () => {
     try {
       // 編集中のPDFがあればそれを使用、なければ元ファイルを使用
       const sourceFile = editedPdfBytes
-        ? new File([editedPdfBytes], currentFile.name, { type: 'application/pdf' })
+        ? new File([new Uint8Array(editedPdfBytes)], currentFile.name, { type: 'application/pdf' })
         : currentFile;
 
       const pdfWithImage = await addImageToPDF(
@@ -113,7 +126,7 @@ export const PDFEditor: React.FC = () => {
     try {
       // 編集中のPDFがあればそれを使用、なければ元ファイルを使用
       const sourceFile = editedPdfBytes
-        ? new File([editedPdfBytes], currentFile.name, { type: 'application/pdf' })
+        ? new File([new Uint8Array(editedPdfBytes)], currentFile.name, { type: 'application/pdf' })
         : currentFile;
 
       const pdfWithText = await addTextToPDF(
@@ -169,7 +182,7 @@ export const PDFEditor: React.FC = () => {
 
   // プレビュー用のファイル: 編集中のPDFがあればそれを使用、なければ元ファイル
   const previewFile = editedPdfBytes && currentFile
-    ? new File([editedPdfBytes], currentFile.name, { type: 'application/pdf' })
+    ? new File([new Uint8Array(editedPdfBytes)], currentFile.name, { type: 'application/pdf' })
     : currentFile;
 
   return (
